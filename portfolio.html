@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ralph Sonato | Cyber Security</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050508;--glass:rgba(16,20,28,.5);--glass-border:rgba(255,255,255,.06);
+  --green:#4ade80;--green2:#22c55e;--green3:#16a34a;
+  --blue:#3b82f6;--blue-light:#60a5fa;
+  --txt:#9ca3af;--txt2:#6b7280;--white:#f1f5f9;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;line-height:1.7}
+
+/* BG */
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(74,222,128,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(74,222,128,.025) 1px,transparent 1px);
+  background-size:60px 60px}
+.orb{position:fixed;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0}
+.o1{width:600px;height:600px;background:rgba(74,222,128,.04);top:-200px;right:-100px}
+.o2{width:450px;height:450px;background:rgba(59,130,246,.03);bottom:5%;left:-150px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,5,8,.75);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--glass-border);transition:all .3s}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--green);font-weight:700;display:flex;align-items:center;gap:8px}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav-links{display:flex;gap:20px}
+.nav-links a{color:var(--txt2);text-decoration:none;font-size:.72rem;font-weight:500;letter-spacing:.5px;transition:color .3s}
+.nav-links a:hover{color:var(--green)}
+
+/* SECTION COMMON */
+.sec{padding:90px 24px;position:relative;z-index:2}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--white);text-align:center;margin-bottom:10px}
+.sec-sub{text-align:center;color:var(--txt2);font-size:.85rem;margin-bottom:48px}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;z-index:2}
+.hero-inner{max-width:700}
+.avatar{width:110px;height:110px;border-radius:50%;margin:0 auto 28px;
+  background:linear-gradient(135deg,rgba(74,222,128,.15),rgba(59,130,246,.1));
+  border:2px solid rgba(74,222,128,.2);display:flex;align-items:center;justify-content:center;
+  font-size:2.4rem;box-shadow:0 0 40px rgba(74,222,128,.08);overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.hero h1{font-size:clamp(2.4rem,5vw,3.4rem);font-weight:900;color:var(--white);line-height:1.05;letter-spacing:-.03em;margin-bottom:12px}
+.hero .roles{font-size:.95rem;color:var(--green);margin-bottom:24px;letter-spacing:.5px}
+.hero .roles span{color:#374151}
+.hero .bio{font-size:.88rem;line-height:1.9;color:var(--txt);max-width:620px;margin:0 auto 32px}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-cv{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;
+  background:linear-gradient(135deg,var(--green2),var(--green3));color:var(--bg);
+  text-decoration:none;font-weight:700;font-size:.78rem;letter-spacing:1.5px;
+  text-transform:uppercase;border-radius:6px;transition:all .3s;box-shadow:0 4px 20px rgba(74,222,128,.2)}
+.btn-cv:hover{box-shadow:0 8px 30px rgba(74,222,128,.35);transform:translateY(-2px)}
+.btn-contact{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;
+  background:transparent;color:var(--white);text-decoration:none;font-weight:500;font-size:.78rem;
+  letter-spacing:1.5px;border-radius:6px;border:1.5px solid rgba(255,255,255,.15);transition:all .3s}
+.btn-contact:hover{border-color:var(--green);color:var(--green)}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;max-width:900px;margin:0 auto}
+.skill-card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:12px;padding:22px 24px;transition:all .3s}
+.skill-card:hover{border-color:rgba(74,222,128,.15)}
+.skill-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.skill-name{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--white);font-weight:500}
+.skill-pct{font-size:.8rem;color:var(--green);font-weight:600;font-family:'JetBrains Mono',monospace}
+.skill-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden}
+.skill-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--green2));transition:width 1.5s ease}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;max-width:960px;margin:0 auto}
+.cert-card{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:12px;padding:24px 22px;cursor:pointer;transition:all .3s}
+.cert-card:hover{border-color:rgba(74,222,128,.15);transform:translateY(-2px)}
+.cert-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.cert-icon{width:40px;height:40px;border-radius:10px;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.cert-year{padding:4px 12px;border-radius:50px;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.2);font-size:.62rem;color:var(--green);font-weight:600;font-family:'JetBrains Mono',monospace}
+.cert-name{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:4px}
+.cert-full{font-size:.78rem;color:var(--txt);margin-bottom:2px}
+.cert-org{font-size:.7rem;color:var(--txt2);margin-bottom:10px}
+.cert-toggle{font-size:.7rem;color:var(--green);display:flex;align-items:center;gap:4px;cursor:pointer}
+.cert-details{margin-top:12px;padding-top:12px;border-top:1px solid var(--glass-border);font-size:.76rem;color:var(--txt);line-height:1.7;display:none}
+.cert-card.open .cert-details{display:block}
+
+/* EXPERIENCE */
+.timeline{position:relative;max-width:860px;margin:0 auto}
+.timeline-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.06);transform:translateX(-50%)}
+.tl-item{display:flex;margin-bottom:56px;position:relative}
+.tl-dot{position:absolute;left:50%;top:4px;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;border:3px solid var(--bg);z-index:3}
+.tl-dot.current{background:var(--green);box-shadow:0 0 10px rgba(74,222,128,.4)}
+.tl-dot.past{background:var(--blue);box-shadow:0 0 10px rgba(59,130,246,.4)}
+.tl-left{width:47%;padding-right:32px;text-align:right}
+.tl-right{width:47%;padding-left:32px;margin-left:auto}
+.tl-spacer{width:47%}
+.tl-period{font-size:.72rem;font-weight:600;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.tl-period.green{color:var(--green)}
+.tl-period.blue{color:var(--blue)}
+.tl-title{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:4px}
+.tl-company{font-size:.78rem;color:var(--txt2);margin-bottom:12px}
+.tl-desc{font-size:.78rem;color:var(--txt);line-height:1.8;margin-bottom:14px}
+.tl-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tl-left .tl-tags{justify-content:flex-end}
+.tl-tag{padding:4px 10px;border-radius:4px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);font-size:.6rem;color:var(--blue-light);font-weight:500}
+
+/* CONTACT */
+.contact-icons{display:flex;justify-content:center;gap:16px;margin-top:40px}
+.contact-icon{width:50px;height:50px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s}
+.contact-icon:hover{border-color:rgba(74,222,128,.2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.contact-icon svg{width:22px;height:22px}
+
+/* FOOTER */
+footer{padding:24px;border-top:1px solid var(--glass-border);text-align:center;font-size:.65rem;color:#4b5563;position:relative;z-index:2}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .skills-grid{grid-template-columns:1fr}
+  .certs-grid{grid-template-columns:1fr}
+  .timeline-line{left:20px}
+  .tl-item{flex-direction:column;padding-left:48px}
+  .tl-dot{left:20px!important}
+  .tl-left,.tl-right{width:100%;padding:0;text-align:left}
+  .tl-left .tl-tags{justify-content:flex-start}
+  .tl-spacer{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="matrix" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.14"></canvas>
+<div class="bg-grid"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="nav-dot"></span> Ralph Sonato</div>
+  <div class="nav-links">
+    <a href="#sobre">Sobre</a>
+    <a href="#habilidades">Habilidades</a>
+    <a href="#certificacoes">Certificações</a>
+    <a href="#experiencia">Experiência</a>
+    <a href="#contato">Contato</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="sobre">
+  <div class="hero-inner">
+    <div class="avatar"><img src="Ralph.jpg"></div>
+    <h1>Ralph Sonato</h1>
+    <p class="roles">Offensive Security <span>|</span> Red Team <span>|</span> Pentester <span>|</span> Purple Team <span>|</span> Cloud Security</p>
+    <p class="bio">Analista de Cibersegurança com mentalidade Purple Team, unindo visão ofensiva e defensiva para elevar a maturidade de segurança. Experiência sólida em operações de SOC, Blue Team e Red Team, com foco em testar controles, aprimorar detecções e acelerar remediações através de melhoria contínua.
+Atuei em monitoramento, detecção e resposta a incidentes utilizando Wazuh, Cortex XDR, Trend Micro Vision One, Microsoft Sentinel/Defender e CrowdStrike Falcon. Vivência prática em administração de segurança de borda com FortiGate e Cloudflare, além de ambientes cloud em Microsoft Azure e AWS.
+Possuo experiência hands-on em testes de penetração, criação de playbooks, elaboração de relatórios técnicos e validação de controles defensivos, sempre promovendo a integração entre ferramentas e a evolução da postura de segurança organizacional.</p>
+    <div class="hero-btns">
+      <a href="./Ralph_Sonato_CV.pdf" download="Ralph_Sonato_CV.pdf" class="btn-cv">⬇ Download CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section class="sec" id="habilidades">
+  <h2 class="sec-title">Habilidades</h2>
+  <p class="sec-sub">Áreas de expertise e competências técnicas em segurança cibernética.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-top"><span class="skill-name">🛡️ Pentest & Red Team</span><span class="skill-pct">95%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-top"><span class="skill-name">🖥️ SIEM & Monitoramento</span><span class="skill-pct">90%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-top"><span class="skill-name">📡 Network Security</span><span class="skill-pct">92%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-top"><span class="skill-name">⚠️ Resposta a Incidentes</span><span class="skill-pct">88%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-top"><span class="skill-name">☁️ Cloud Security</span><span class="skill-pct">85%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-top"><span class="skill-name">👁️ Threat Intelligence</span><span class="skill-pct">80%</span></div>
+      <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICAÇÕES -->
+<section class="sec" id="certificacoes">
+  <h2 class="sec-title">Certificações</h2>
+  <p class="sec-sub">Credenciais reconhecidas internacionalmente na área de segurança.</p>
+  <div class="certs-grid">
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2026</span></div>
+      <div class="cert-name">eJPT</div>
+      <div class="cert-full">Junior Penetration Tester</div>
+      <div class="cert-org">INE Security</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2026</span></div>
+      <div class="cert-name">WEB-RTA</div>
+      <div class="cert-full">Web Red Team Analyst</div>
+      <div class="cert-org">CyberWarFare Labs</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2026</span></div>
+      <div class="cert-name">API-RTA</div>
+      <div class="cert-full">API Red Team Analyst</div>
+      <div class="cert-org">CyberWarFare Labs</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2026</span></div>
+      <div class="cert-name">SEC1</div>
+      <div class="cert-full">Certificação em Segurança Cibernética 101</div>
+      <div class="cert-org">TryHackMe</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2025</span></div>
+      <div class="cert-name">CRTA</div>
+      <div class="cert-full">Certified Red Team Analyst</div>
+      <div class="cert-org">CyberWarFare Labs</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2025</span></div>
+      <div class="cert-name">ICCA</div>
+      <div class="cert-full">INE Certified Cloud Associate</div>
+      <div class="cert-org">INE Security</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2025</span></div>
+      <div class="cert-name">CBTeamer</div>
+      <div class="cert-full">Certified Blue Teamer</div>
+      <div class="cert-org">The SecOps Group</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2025</span></div>
+      <div class="cert-name">MCRTA</div>
+      <div class="cert-full">Multi-Cloud Red Team Analyst</div>
+      <div class="cert-org">CyberWarFare Labs</div>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-header"><div class="cert-icon">🏅</div><span class="cert-year">✓ 2025</span></div>
+      <div class="cert-name">MCBTA</div>
+      <div class="cert-full">Multi-Cloud Blue Team Analyst</div>
+      <div class="cert-org">CyberWarFare Labs</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section class="sec" id="experiencia">
+  <h2 class="sec-title">Experiência</h2>
+  <p class="sec-sub">Minha trajetória profissional.</p>
+  <div class="timeline">
+    <div class="timeline-line"></div>
+
+    <!-- 1 - LEFT -->
+    <div class="tl-item">
+      <div class="tl-dot current" style="left:50%"></div>
+      <div class="tl-left">
+        <div class="tl-period green">Atualmente</div>
+        <div class="tl-title">Analista de Cibersegurança (Cloud)</div>
+        <div class="tl-company">Aquarela Cloud Solutions</div>
+        <p class="tl-desc">Realizo o monitoramento contínuo de ambientes Azure e redes, utilizando o Wazuh como SIEM para análise de logs, correlação de eventos e resposta a incidentes. Administro soluções de segurança de borda com Firewalls Fortigate e Cloudflare (WAF/DDoS), e sou responsável pelo desenvolvimento de documentação técnica, como playbooks e procedimentos de SOC, colaborando diretamente com clientes na identificação de melhorias e mitigação de vulnerabilidades.</p>
+        <div class="tl-tags">
+          <span class="tl-tag">Azure & Cloud Security</span>
+          <span class="tl-tag">Wazuh SIEM</span>
+          <span class="tl-tag">Fortigate & Cloudflare</span>
+        </div>
+      </div>
+      <div class="tl-spacer"></div>
+    </div>
+
+    <!-- 2 - RIGHT -->
+    <div class="tl-item">
+      <div class="tl-dot past" style="left:50%"></div>
+      <div class="tl-spacer"></div>
+      <div class="tl-right">
+        <div class="tl-period blue">Dez. 2025 — Jan. 2026</div>
+        <div class="tl-title">Analista de Segurança da Informação (Blue Team)</div>
+        <div class="tl-company">Softwall</div>
+        <p class="tl-desc">Atuei na frente de Blue Team focada em detecção e resposta, realizando a criação de regras e tuning de alertas no Wazuh e Trend Micro Vision One. Gerenciei o ciclo completo de incidentes através da plataforma IRIS. Utilizei o Vectr para validação de controles defensivos e era responsável pela elaboração de relatórios profissionais detalhados.</p>
+        <div class="tl-tags">
+          <span class="tl-tag">Wazuh & Trend Micro</span>
+          <span class="tl-tag">IRIS</span>
+          <span class="tl-tag">Vectr</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 - LEFT -->
+    <div class="tl-item">
+      <div class="tl-dot past" style="left:50%"></div>
+      <div class="tl-left">
+        <div class="tl-period blue">Maio 2025 — Jan. 2026</div>
+        <div class="tl-title">Analista SOC</div>
+        <div class="tl-company">Compwire</div>
+        <p class="tl-desc">Atuei com excelência na monitorização, detecção e resposta a incidentes, usando Wazuh como SIEM, Cortex XDR da Palo Alto, Trend Micro, também ajudei na melhoria e criação de Playbooks para todo o time N1.</p>
+        <div class="tl-tags">
+          <span class="tl-tag">Wazuh SIEM</span>
+          <span class="tl-tag">Cortex XDR</span>
+          <span class="tl-tag">Playbooks N1</span>
+        </div>
+      </div>
+      <div class="tl-spacer"></div>
+    </div>
+
+    <!-- 4 - RIGHT -->
+    <div class="tl-item">
+      <div class="tl-dot past" style="left:50%"></div>
+      <div class="tl-spacer"></div>
+      <div class="tl-right">
+        <div class="tl-period blue">Mar. 2024 — Fev. 2025</div>
+        <div class="tl-title">Analista Cyber Security SOC Jr</div>
+        <div class="tl-company">Solo Network</div>
+        <p class="tl-desc">Monitorei sistemas usando ferramentas e técnicas para identificar ameaças, realizei triagem de alertas e incidentes, investiguei e analisei, coletando evidências com causas e impactos. Forneci suporte técnico e respondi a dúvidas relacionadas a ocorrências de segurança, registrei e documentei todas as atividades para garantir conformidade e facilitar auditorias.</p>
+        <div class="tl-tags">
+          <span class="tl-tag">SOC Monitoring</span>
+          <span class="tl-tag">Triagem & Resposta</span>
+          <span class="tl-tag">Documentação</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="sec" id="contato">
+  <h2 class="sec-title">Contato</h2>
+  <p class="sec-sub">Conecte-se comigo pelas redes.</p>
+  <div class="contact-icons">
+    <a href="https://www.linkedin.com/in/ralph-sonato-77086b16b/" target="_blank" class="contact-icon">
+      <svg viewBox="0 0 24 24" fill="#9ca3af"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+    </a>
+    <a href="mailto:ralphsonato@gmail.com" class="contact-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+    </a>
+    <a href="https://github.com/ralphsonato" target="_blank" class="contact-icon">
+      <svg viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    </a>
+    <a href="https://www.youtube.com/@ralphsonatocybersecurity" target="_blank" class="contact-icon">
+      <svg viewBox="0 0 24 24" fill="#9ca3af"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>© 2026 Ralph Sonato. Todos os direitos reservados. Feito com 🔐 e segurança</footer>
+
+<script>
+// Matrix rain
+const c = document.getElementById('matrix');
+const ctx = c.getContext('2d');
+function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+resize();
+window.addEventListener('resize',resize);
+
+const chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF{}[]<>/\\|!@#$%&*';
+const fontSize=14;
+let columns=Math.floor(c.width/fontSize);
+let drops=Array(columns).fill(1);
+
+function drawMatrix(){
+  ctx.fillStyle='rgba(5,5,8,.04)';
+  ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle='#4ade80';
+  ctx.font=fontSize+'px JetBrains Mono, monospace';
+  for(let i=0;i<drops.length;i++){
+    const char=chars[Math.floor(Math.random()*chars.length)];
+    ctx.globalAlpha=Math.random()*.6+.3;
+    ctx.fillText(char,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>c.height&&Math.random()>.975) drops[i]=0;
+    drops[i]++;
+  }
+  ctx.globalAlpha=1;
+}
+setInterval(drawMatrix,45);
+window.addEventListener('resize',()=>{
+  columns=Math.floor(c.width/fontSize);
+  drops=Array(columns).fill(1);
+});
+
+// Animate skill bars on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skills-grid').forEach(el => observer.observe(el));
+
+// Active nav link
+window.addEventListener('scroll', () => {
+  const ids = ['sobre','habilidades','certificacoes','experiencia','contato'];
+  let current = '';
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 200) current = id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? '#4ade80' : '';
+  });
+});
+</script>
+</body>
+</html>
